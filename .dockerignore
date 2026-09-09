@@ -1,0 +1,8 @@
+.env
+.git
+.gitignore
+runtime/cache
+runtime/logs
+runtime/sessions
+vendor
+app/vendor

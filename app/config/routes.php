@@ -44,4 +44,18 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 /** @var object $router **/
 
-$router->get('/', 'Welcome::index');
+require_once APP_DIR . 'config/middleware.php';
+
+$router->get('/', function () {
+	redirect('/login');
+});
+$router->get('/login', 'Auth::login');
+$router->post('/login', 'Auth::login');
+$router->get('/logout', 'Auth::logout');
+
+$router->get('/products', 'Products::index')->middleware('auth');
+$router->get('/products/create', 'Products::create')->middleware('auth');
+$router->post('/products/store', 'Products::store')->middleware('auth');
+$router->get('/products/edit/{id}', 'Products::edit')->middleware('auth');
+$router->post('/products/update/{id}', 'Products::update')->middleware('auth');
+$router->post('/products/delete/{id}', 'Products::delete')->middleware('auth');
